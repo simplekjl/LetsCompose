@@ -3,6 +3,7 @@ package com.simplekjl.compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,22 +23,27 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MessageCard("Android")
+                    MessageCard(Message("JL","Hola Android"))
                 }
             }
         }
     }
 }
 
+data class Message(val author: String, val body: String)
+
 @Composable
-fun MessageCard(name: String) {
-    Text(text = "Hello $name!")
+fun MessageCard(msg: Message) {
+    Column {
+        Text(text = msg.body)
+        Text(text = msg.author)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewMessageCard() {
     ComposeOneTheme {
-        MessageCard("Hello in a MessageCard")
+        MessageCard(Message(author = "JL", body = "Hello in a MessageCard"))
     }
 }
