@@ -1,5 +1,6 @@
 package com.simplekjl.compose
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -58,14 +59,29 @@ fun MessageCard(msg: Message) {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
-            Text(text = msg.body)
+            Text(
+                text = msg.author,
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = msg.author, color = MaterialTheme.colors.secondaryVariant)
+            Surface(shape = MaterialTheme.shapes.medium, elevation = 1.dp) {
+
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    style = MaterialTheme.typography.body2
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light Mode ", showBackground = true)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true, name = "Dark Mode"
+)
 @Composable
 fun PreviewMessageCard() {
     ComposeOneTheme {
