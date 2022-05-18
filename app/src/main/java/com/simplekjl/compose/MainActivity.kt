@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MessageCard(Message("JL", "Hola Android","https://thumbs.dreamstime.com/z/woman-natural-beauty-makeup-portrait-fashion-model-touching-face-hands-beautiful-girl-skin-care-treatment-woman-natural-140288618.jpg"))
+                    Conversation(messages = SampleData().messages)
                 }
             }
         }
@@ -111,6 +111,6 @@ fun Conversation(messages: List<Message>) {
 @Composable
 fun PreviewConversation() {
     ComposeOneTheme {
-        Conversation(messages = SampleData().messages)
+        Conversation(messages = SampleData().messages.subList(0,2))
     }
 }
