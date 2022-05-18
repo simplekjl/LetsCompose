@@ -3,6 +3,7 @@ package com.simplekjl.compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -51,14 +52,15 @@ fun MessageCard(msg: Message) {
             contentDescription = "author : ${msg.author}",
             modifier = Modifier
                 .size(40.dp)
-                .clip(CircleShape),
+                .clip(CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape),
             contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
             Text(text = msg.body)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = msg.author)
+            Text(text = msg.author, color = MaterialTheme.colors.secondaryVariant)
         }
     }
 }
