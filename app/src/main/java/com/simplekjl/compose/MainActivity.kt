@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -25,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.simplekjl.compose.ui.theme.ComposeOneTheme
+import com.simplekjl.compose.utils.SampleData
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,20 +39,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MessageCard(Message("JL", "Hola Android"))
+                    MessageCard(Message("JL", "Hola Android","https://thumbs.dreamstime.com/z/woman-natural-beauty-makeup-portrait-fashion-model-touching-face-hands-beautiful-girl-skin-care-treatment-woman-natural-140288618.jpg"))
                 }
             }
         }
     }
 }
 
-data class Message(val author: String, val body: String)
+data class Message(val author: String, val body: String, val imageUrl: String?)
 
 @Composable
 fun MessageCard(msg: Message) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
         AsyncImage(
-            model = "https://thumbs.dreamstime.com/z/woman-natural-beauty-makeup-portrait-fashion-model-touching-face-hands-beautiful-girl-skin-care-treatment-woman-natural-140288618.jpg",
+            model = msg.imageUrl,
             contentDescription = "author : ${msg.author}",
             modifier = Modifier
                 .size(40.dp)
@@ -85,6 +88,29 @@ fun MessageCard(msg: Message) {
 @Composable
 fun PreviewMessageCard() {
     ComposeOneTheme {
-        MessageCard(Message(author = "JL", body = "Hello in a MessageCard"))
+        MessageCard(
+            Message(
+                author = "JL",
+                body = "Hello in a MessageCard",
+                imageUrl = null
+            )
+        )
+    }
+}
+
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(msg = message)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    ComposeOneTheme {
+        Conversation(messages = SampleData().messages)
     }
 }
