@@ -23,9 +23,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.simplekjl.compose.R.drawable
 import com.simplekjl.compose.ui.theme.ComposeOneTheme
 import com.simplekjl.compose.utils.SampleData
 
@@ -39,20 +41,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Conversation(messages = SampleData().messages)
+                    Conversation(messages = SampleData.conversationSample)
                 }
             }
         }
     }
 }
 
-data class Message(val author: String, val body: String, val imageUrl: String?)
+data class Message(val author: String, val body: String, val imageUrl: String? = null)
 
 @Composable
 fun MessageCard(msg: Message) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
         AsyncImage(
             model = msg.imageUrl,
+            placeholder = painterResource(id = drawable.ic_profile),
             contentDescription = "author : ${msg.author}",
             modifier = Modifier
                 .size(40.dp)
@@ -111,6 +114,6 @@ fun Conversation(messages: List<Message>) {
 @Composable
 fun PreviewConversation() {
     ComposeOneTheme {
-        Conversation(messages = SampleData().messages.subList(0,2))
+        Conversation(messages = SampleData.conversationSample.subList(0,2))
     }
 }
