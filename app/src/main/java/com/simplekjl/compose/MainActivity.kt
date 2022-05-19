@@ -27,7 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.simplekjl.compose.R.drawable
 import com.simplekjl.compose.ui.theme.ComposeOneTheme
 import com.simplekjl.compose.utils.SampleData
 
@@ -55,13 +54,14 @@ fun MessageCard(msg: Message) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
         AsyncImage(
             model = msg.imageUrl,
-            placeholder = painterResource(id = drawable.ic_profile),
             contentDescription = "author : ${msg.author}",
+            placeholder = painterResource(id = R.drawable.ghost),
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            error = painterResource(id = R.drawable.ghost)
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column {
@@ -114,6 +114,6 @@ fun Conversation(messages: List<Message>) {
 @Composable
 fun PreviewConversation() {
     ComposeOneTheme {
-        Conversation(messages = SampleData.conversationSample.subList(0,2))
+        Conversation(messages = SampleData.conversationSample.subList(0, 2))
     }
 }
