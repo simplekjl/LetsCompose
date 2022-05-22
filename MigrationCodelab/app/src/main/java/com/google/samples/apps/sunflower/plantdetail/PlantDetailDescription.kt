@@ -23,8 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.samples.apps.sunflower.R
-import com.google.samples.apps.sunflower.R.dimen
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
@@ -39,7 +39,7 @@ fun PlantDetailDescription(plantDetailViewModel: PlantDetailViewModel) {
 @Composable
 fun PlantDetailContent(plant: Plant) {
     Surface {
-        Column(modifier = Modifier.padding(all = dimensionResource(id = dimen.margin_normal))) {
+        Column(modifier = Modifier.padding(all = dimensionResource(id = R.dimen.margin_normal))) {
             PlantName(name = plant.name)
             PlantWatering(wateringInterval = plant.wateringInterval)
             PlantDescription(description = plant.description)
@@ -51,7 +51,7 @@ fun PlantDetailContent(plant: Plant) {
 @Composable
 fun PlantDetailContentPreview() {
     val plant = Plant("id", "Apple", description = "HTML<br><br>description", 3, 30, "")
-    MaterialTheme {
+    MdcTheme {
         PlantDetailContent(plant = plant)
     }
 }
@@ -71,7 +71,7 @@ fun PlantName(name: String) {
 @Preview
 @Composable
 private fun PlantNamePreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantName(name = "Apple ")
     }
 }
@@ -109,7 +109,7 @@ private fun PlantWatering(wateringInterval: Int) {
 @Preview(showBackground = true)
 @Composable
 private fun PlantWateringPreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantWatering(wateringInterval = 3)
     }
 }
@@ -131,7 +131,7 @@ private fun PlantDescription(description: String) {
 @Preview
 @Composable
 private fun PlanDescriptionPreview() {
-    MaterialTheme {
+    MdcTheme {
         PlantDescription(description = "HTML<br><br>description")
     }
 
