@@ -1,10 +1,8 @@
 package com.google.samples.apps.sunflower.plantdetail
 
-import android.os.Build.VERSION_CODES
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
