@@ -1,5 +1,10 @@
 package com.google.samples.apps.sunflower.plantdetail
 
+import android.os.Build.VERSION_CODES
+import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,6 +23,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.text.HtmlCompat
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.R.dimen
 import com.google.samples.apps.sunflower.data.Plant
@@ -36,6 +44,7 @@ fun PlantDetailContent(plant: Plant) {
         Column(modifier = Modifier.padding(all = dimensionResource(id = dimen.margin_normal))) {
             PlantName(name = plant.name)
             PlantWatering(wateringInterval = plant.wateringInterval)
+            PlantDescription(description = plant.description)
         }
     }
 }
@@ -43,7 +52,7 @@ fun PlantDetailContent(plant: Plant) {
 @Preview
 @Composable
 fun PlantDetailContentPreview() {
-    val plant = Plant("id", "Apple", description = "description", 3, 30, "")
+    val plant = Plant("id", "Apple", description = "HTML<br><br>description", 3, 30, "")
     MaterialTheme {
         PlantDetailContent(plant = plant)
     }
@@ -104,6 +113,28 @@ private fun PlantWatering(wateringInterval: Int) {
 private fun PlantWateringPreview() {
     MaterialTheme {
         PlantWatering(wateringInterval = 3)
-
     }
+}
+
+@Composable
+private fun PlantDescription(description: String) {
+    // Remembers the HTML formatted description. Re-executes on a new description
+    val htmlDescription = remember(description) {
+        Html.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
+
+    AndroidView(factory = { context ->
+        TextView(context).apply {
+            movementMethod = LinkMovementMethod.getInstance()
+        }
+    }, update = { it.text = htmlDescription })
+}
+
+@Preview
+@Composable
+private fun PlanDescriptionPreview() {
+    MaterialTheme {
+        PlantDescription(description = "HTML<br><br>description")
+    }
+
 }
