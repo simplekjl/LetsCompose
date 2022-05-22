@@ -37,6 +37,6 @@ fun PlantName(name: String) {
 @Composable
 private fun PlantNamePreview() {
     MaterialTheme {
-        PlantName(name = "Apple")
+        PlantName(name = "Apple ")
     }
 }
