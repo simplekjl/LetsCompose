@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.R.dimen
-import com.google.samples.apps.sunflower.R.string
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
@@ -32,13 +32,18 @@ fun PlantDetailDescription(plantDetailViewModel: PlantDetailViewModel) {
 
 @Composable
 fun PlantDetailContent(plant: Plant) {
-    PlantName(name = plant.name)
+    Surface {
+        Column(modifier = Modifier.padding(all = dimensionResource(id = dimen.margin_normal))) {
+            PlantName(name = plant.name)
+            PlantWatering(wateringInterval = plant.wateringInterval)
+        }
+    }
 }
 
 @Preview
 @Composable
 fun PlantDetailContentPreview() {
-    val plant = Plant("id", "apple", description = "description", 3, 30, "")
+    val plant = Plant("id", "Apple", description = "description", 3, 30, "")
     MaterialTheme {
         PlantDetailContent(plant = plant)
     }
@@ -71,10 +76,10 @@ private fun PlantWatering(wateringInterval: Int) {
         val centerPaddingModifier = Modifier
             .padding(horizontal = dimensionResource(id = R.dimen.margin_small))
             .align(Alignment.CenterHorizontally)
-        val normalPadding = dimensionResource(id = dimen.margin_normal)
+        val normalPadding = dimensionResource(id = R.dimen.margin_normal)
 
         Text(
-            text = stringResource(id = string.watering_needs_prefix),
+            text = stringResource(id = R.string.watering_needs_prefix),
             color = MaterialTheme.colors.primaryVariant,
             fontWeight = FontWeight.Bold,
             modifier = centerPaddingModifier
