@@ -6,3 +6,4 @@ Repository with several initiatives using compose, some code is only for trainin
 
 - simplechat : chat using basic compose functions and coil for image loading
 - migration app : taken from the google codelabs using it to train how to migrate an app from the AndroidViewSystem to compose
+- Basic Layout : simple app using lazy column and grid 
