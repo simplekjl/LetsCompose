@@ -22,7 +22,9 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -30,6 +32,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -88,7 +92,7 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
-    @StringRes positionNameRes: Int,
+    @StringRes collectionNameRes: Int,
     @DrawableRes imageRes: Int,
     modifier: Modifier = Modifier
 ) {
@@ -102,7 +106,7 @@ fun AlignYourBodyElement(
                 .clip(CircleShape)
         )
         Text(
-            text = stringResource(id = positionNameRes),
+            text = stringResource(id = collectionNameRes),
             style = MaterialTheme.typography.h3,
             modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp)
         )
@@ -144,7 +148,15 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    // no clipping will add the space required to have a more beautiful UI
+    LazyRow(
+        modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(collectionNameRes = item.text, imageRes = item.drawable)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
@@ -216,7 +228,7 @@ fun AlignYourBodyElementPreview() {
     MySootheTheme {
         AlignYourBodyElement(
             modifier = Modifier.padding(8.dp),
-            positionNameRes = R.string.ab1_inversions,
+            collectionNameRes = R.string.ab1_inversions,
             imageRes = R.drawable.ab1_inversions
         )
     }
