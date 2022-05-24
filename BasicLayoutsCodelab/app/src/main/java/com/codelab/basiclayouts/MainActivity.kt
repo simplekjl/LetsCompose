@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -194,6 +195,26 @@ fun FavoriteCollectionsGrid(
     }
 }
 
+// Inversions collections grid vertical
+@Composable
+fun InversionsGrid(modifier: Modifier = Modifier) {
+    // calculate the size of your items, in this case works perfect because there is no waiting time for the data to be ready to display
+    val totalHeight = (alignYourBodyData.size / 2) * 130
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = modifier
+            .height(totalHeight.dp),
+        userScrollEnabled = false,
+        contentPadding = PaddingValues(vertical = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(collectionNameRes = item.text, imageRes = item.drawable)
+        }
+    }
+}
+
 // Step: Home section - Slot APIs
 @Composable
 fun HomeSection(
@@ -228,8 +249,11 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         HomeSection(title = R.string.favorite_collections) {
             FavoriteCollectionsGrid()
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        HomeSection(title = R.string.ab1_inversions) {
+            InversionsGrid()
+        }
     }
+    Spacer(modifier = Modifier.height(16.dp))
 }
 
 // Step: Bottom navigation - Material
@@ -318,6 +342,14 @@ fun FavoriteCollectionCardPreview() {
 @Composable
 fun FavoriteCollectionsGridPreview() {
     MySootheTheme { FavoriteCollectionsGrid() }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun InversionsCollectionGridPreview() {
+    MySootheTheme {
+        InversionsGrid()
+    }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
