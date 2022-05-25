@@ -197,13 +197,16 @@ fun FavoriteCollectionsGrid(
 
 // Inversions collections grid vertical
 @Composable
-fun InversionsGrid(modifier: Modifier = Modifier) {
+fun InversionsGrid(gridElements: Int, itemGridHeight: Int, modifier: Modifier = Modifier) {
     // calculate the size of your items, in this case works perfect because there is no waiting time for the data to be ready to display
-    val totalHeight = (alignYourBodyData.size / 2) * 130
+    val allElementsHeight =
+        (alignYourBodyData.size / gridElements) * itemGridHeight // size of the item
+    val totalGridHeight =
+        allElementsHeight + 40 // adding padding  to increase viewport from the last position
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(gridElements),
         modifier = modifier
-            .height(totalHeight.dp),
+            .height(totalGridHeight.dp),
         userScrollEnabled = false,
         contentPadding = PaddingValues(vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -250,7 +253,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             FavoriteCollectionsGrid()
         }
         HomeSection(title = R.string.ab1_inversions) {
-            InversionsGrid()
+            InversionsGrid(gridElements = 2, itemGridHeight = 120)
         }
     }
     Spacer(modifier = Modifier.height(16.dp))
@@ -348,7 +351,7 @@ fun FavoriteCollectionsGridPreview() {
 @Composable
 fun InversionsCollectionGridPreview() {
     MySootheTheme {
-        InversionsGrid()
+        InversionsGrid(2, 120)
     }
 }
 
