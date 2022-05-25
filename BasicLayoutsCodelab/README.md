@@ -3,6 +3,14 @@
 This folder contains the source code for
 the [Basic Layouts in Compose Codelab](https://developer.android.com/codelabs/jetpack-compose-layouts)
 
+
+# Purpose
+Practice basic components in compose
+
+
+https://user-images.githubusercontent.com/12452269/170013324-aaef35a1-e971-4717-b786-34ea4b2fd054.mov
+
+
 ## License
 
 ```
